@@ -1,14 +1,15 @@
 export function fetchRows() {
     return fetch(
-        'https://gp-test.nso.ru/application/bi_data/get',
+        'https://iss.moex.com/iss/engines/stock/markets/shares/boards/tqbr/securities.json?securities=GAZP,SBER,LKOH',
+        //'http://iss.moex.com/iss/history/engines/stock/markets/shares/boards/tqbr/securities/SBER.json?from=2022-08-31',
         {
-            method: 'post',
-            mode: 'cors',
-            headers: {
+            method: 'get',
+            //mode: 'cors',
+           /* headers: {
                 'Content-type': 'application/json',
                 'Authorization': 'Basic bG9naW46c2VydmljZQ=='
-            },
-            body: JSON.stringify({
+            },*/
+           /* body: JSON.stringify({
                 id: 'exportPurchase',
                 attribute: [
                     {id: 'fundsType'},
@@ -19,7 +20,7 @@ export function fetchRows() {
                     {id: "inn", operation: "equal", value: "5406643611"},
                     {id: "kpp", operation: "equal", value: "540601001"}
                 ]
-            })
+            })*/
         }
     )
         .then(resp => resp.json())

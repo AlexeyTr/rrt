@@ -37,3 +37,21 @@
     opacity: 1;
     transition: 0s;
 }
+
+.wrap {
+    overflow-x: auto;
+    padding: 15px;
+}
+
+.table {
+    font-size: 14px;
+    border-collapse: collapse;
+}
+
+.table tr th {
+    border: solid 1px black;
+}
+
+.table tr td {
+    border: solid 1px #ddd;
+}
