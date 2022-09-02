@@ -49,9 +49,47 @@
 }
 
 .table tr th {
-    border: solid 1px black;
+    border: solid 1px #ddd;
+    padding: 2rem;
 }
 
 .table tr td {
-    border: solid 1px #ddd;
+    border: solid 1px #eee;
+}
+
+.cardGroup {
+    margin: 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 1vw;
+    grid-row-gap: 1vh;
+}
+
+.card {
+    border-radius: 5px;
+    background-color: #fff;
+    text-align: left;
+}
+
+.below {
+    border: solid 2px #ff6a6a;
+}
+
+.above {
+    border: solid 2px #4ebe4e;
+}
+
+.cardHeader {
+    font-weight: bold;
+    padding: 1rem;
+    border-bottom: solid 2px #dddddd;
+}
+
+.cardBody {
+    padding: 1rem;
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 1vh;
+    font-size: 20px;
 }

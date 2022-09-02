@@ -1,33 +1,46 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchRows} from "./testAPI";
 
-interface MOEX_RESPONSE {
+interface MOEXType {
     columns: Array<String>,
     data: Array<Array<any>>
 }
 
-let securities: MOEX_RESPONSE = {
-    columns: [],
-    data: []
+export interface Asset {
+    name?: string,
+    title: string,
+    value?: number
 }
 
-let marketData: MOEX_RESPONSE = {
-    columns: [],
-    data: []
-}
+const assets = [
+    {name: 'SBER', title: 'Сбербанк', value: 252.85},
+    {name: 'GAZP', title: 'Газпром', value: 287.86},
+    {name: 'LKOH', title: 'Лукойл', value: 6245.5},
+    {name: 'ROSN', title: 'Роснефть', value: 440.89},
+    {name: 'CHMF', title: 'Северсталь', value: 1372.8},
+    {name: 'YNDX', title: 'Яндекс', value: 3527.6},
+    {name: 'POLY', title: 'Полиметалл', value: 1150.3},
+    {name: 'NVTK', title: 'Новатек', value: 1439.6},
+    {name: 'NLMK', title: 'НЛМК', value: 214.82},
+    {name: 'MAGN', title: 'ММК', value: 52.670},
+    {name: 'ALRS', title: 'Алроса', value: 97.04},
+    {name: 'HHRU', title: 'HeadHunter', value: 3148},
+]
 
 export interface TestSlice {
     value: number;
     rows: Array<any>,
-    marketData: MOEX_RESPONSE,
-    securities: MOEX_RESPONSE
+    assets: Array<Asset>,
+    marketData: MOEXType,
+    securities: MOEXType,
 }
 
 const initialState: TestSlice = {
     value: 0,
     rows: [],
-    marketData: marketData,
-    securities: securities
+    assets: assets,
+    marketData: {columns: [], data: []},
+    securities: {columns: [], data: []},
 }
 
 export const testSlice = createSlice({
@@ -35,7 +48,6 @@ export const testSlice = createSlice({
    initialState,
    reducers: {
        click: (state) => {
-           console.log(state.value);
            state.value += 5;
        },
        superClick: (state, action: PayloadAction<number>) => {
@@ -48,7 +60,7 @@ export const testSlice = createSlice({
             .addCase(asyncAction.pending, state => {})
             .addCase(asyncAction.fulfilled, (state, action) => {
                 console.log('data', action.payload);
-                state.marketData = action.payload.marketData;
+                state.marketData = action.payload.marketdata;
                 state.securities = action.payload.securities;
             })
             .addCase(asyncAction.rejected, state => {
@@ -59,8 +71,8 @@ export const testSlice = createSlice({
 
 export const asyncAction = createAsyncThunk(
     'test/asyncAction',
-    async () => {
-        return await fetchRows();
+    async (props : object) => {
+        return await fetchRows(props);
     }
 );
 

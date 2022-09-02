@@ -7,8 +7,10 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <div>
         <Test/>
+      </div>
+      <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
