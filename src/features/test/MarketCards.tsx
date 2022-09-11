@@ -1,6 +1,7 @@
 import React from "react";
 import styles from './Test.module.css';
 import {useAppSelector} from "../../app/hooks";
+import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 
 const columnNames = ['SECID', 'BID', 'OPEN', 'LOW', 'HIGH', 'LAST', 'SYSTIME'];
 
@@ -42,10 +43,17 @@ export function MarketCards() {
 function Card(props : {name?: string, title: string, avg ?: number, last ?: number, high ?: number, low ?: number, open ?: number}) {
     const { title, avg = 0, last = 0, high = 0, low = 0, open = 0 } = props;
 
+    const above = avg < last;
+
     return (
-        <div className={`${styles.card} ${avg < last ? styles.above : styles.below}`}>
+        <div className={`${styles.card} ${above ? styles.above : styles.below}`}>
             <div className={styles.cardHeader}>
-                <span>{title}</span>
+                <span>
+                    {title}
+                    {
+                        above ? <ArrowUpOutlined style={{color: 'green'}}/> : <ArrowDownOutlined size={10} style={{color: 'red'}}/>
+                    }
+                </span>
             </div>
             <div className={styles.cardBody}>
                 <span>Мое среднее: {avg}</span>

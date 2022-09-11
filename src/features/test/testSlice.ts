@@ -33,12 +33,14 @@ export interface TestSlice {
     assets: Array<Asset>,
     marketData: MOEXType,
     securities: MOEXType,
+    loaded: boolean,
 }
 
 const initialState: TestSlice = {
     value: 0,
     rows: [],
     assets: assets,
+    loaded: false,
     marketData: {columns: [], data: []},
     securities: {columns: [], data: []},
 }
@@ -57,14 +59,18 @@ export const testSlice = createSlice({
 
     extraReducers: (builder => {
         builder
-            .addCase(asyncAction.pending, state => {})
+            .addCase(asyncAction.pending, state => {
+                state.loaded = true;
+            })
             .addCase(asyncAction.fulfilled, (state, action) => {
                 console.log('data', action.payload);
                 state.marketData = action.payload.marketdata;
                 state.securities = action.payload.securities;
+                state.loaded = false;
             })
             .addCase(asyncAction.rejected, state => {
                 console.log('rejected');
+                state.loaded = false;
             })
     })
 });
